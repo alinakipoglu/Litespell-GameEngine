@@ -1,6 +1,5 @@
 package com.litespell.gameengine.components.common.view
 {
-	import com.litespell.gameengine.components.common.view.interfaces.IViewComponent;
 	import com.litespell.gameengine.core.namespaces.LSGE_INTERNAL;
 	import com.litespell.gameengine.core.objects.AbstractComponent;
 	import com.litespell.gameengine.core.objects.interfaces.ISystem;
@@ -12,7 +11,7 @@ package com.litespell.gameengine.components.common.view
 	
 	use namespace LSGE_INTERNAL;
 	
-	public class ViewComponent extends AbstractComponent implements IViewComponent
+	public class ViewComponent extends AbstractComponent
 	{
 		public static const COMPONENT_NAME	:String = "viewComponent";
 		
@@ -33,6 +32,8 @@ package com.litespell.gameengine.components.common.view
 		public function ViewComponent(_layerName:String)
 		{
 			super(COMPONENT_NAME);
+			
+			requiresUpdate	= true;
 			
 			m_layerName		= _layerName;
 			m_container		= new Sprite();
@@ -105,7 +106,16 @@ package com.litespell.gameengine.components.common.view
 		
 		override public function onSelfRemove():void
 		{
+			super.onSelfRemove();
+			
 			tryToRemoveSelfFromViewSystem();
+		}
+		
+		override public function update():void
+		{
+			m_container.x			= position.x;
+			m_container.y			= position.y;
+			m_container.rotation	= rotation;
 		}
 		
 		private function tryToAddSelfToViewSystem():void
@@ -116,7 +126,7 @@ package com.litespell.gameengine.components.common.view
 				
 				if(_viewSystem)
 				{
-					_viewSystem.addViewComponent(this, m_layerName);
+					_viewSystem.addViewContent(m_container, m_layerName);
 					
 					m_added	= true;
 				}
@@ -131,7 +141,7 @@ package com.litespell.gameengine.components.common.view
 				
 				if(_viewSystem)
 				{
-					_viewSystem.removeViewComponent(this);
+					_viewSystem.removeViewContent(m_container);
 					
 					m_added	= false;
 				}

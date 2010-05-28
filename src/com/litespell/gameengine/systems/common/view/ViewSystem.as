@@ -1,8 +1,8 @@
 package com.litespell.gameengine.systems.common.view
 {
-	import com.litespell.gameengine.components.common.view.ViewComponent;
-	import com.litespell.gameengine.components.common.view.interfaces.IViewComponent;
 	import com.litespell.gameengine.core.objects.AbstractSystem;
+	
+	import flash.display.DisplayObject;
 	
 	public class ViewSystem extends AbstractSystem
 	{
@@ -10,18 +10,13 @@ package com.litespell.gameengine.systems.common.view
 		public static const DEFAULT_TOP_LAYER	:String	= "DEFAULT_TOP_LAYER";
 		
 		private var m_viewport					:Viewport;
-		private var m_viewComponents			:Vector.<IViewComponent>;
-		
 		
 		public function ViewSystem(_viewportWidth:Number, _viewportHeight:Number)
 		{
 			super(SYSTEM_NAME);
 			
-			requiresUpdate			= true;
-			
 			m_viewport				= new Viewport(_viewportWidth, _viewportHeight);
-			m_viewComponents		= new Vector.<IViewComponent>();
-			
+
 			addViewportLayer(DEFAULT_TOP_LAYER, 999999999);
 		}
 		
@@ -38,45 +33,23 @@ package com.litespell.gameengine.systems.common.view
 			}
 		}
 		
-		public function addViewComponent(_viewComponent:IViewComponent, _layerName:String):void
-		{
-			if(m_viewport.containsLayerWithName(_layerName))
-			{
-				m_viewport.addChildToLayer(_viewComponent.container, _layerName);
-				
-				m_viewComponents[m_viewComponents.length]	= _viewComponent;
-			}
-		}
-		
 		public function removeViewportLayerByName(_name:String):void
 		{
 			m_viewport.removeLayer(_name);
 		}
 		
-		public function removeViewComponent(_viewComponent:IViewComponent):void
+		
+		public function addViewContent(_content:DisplayObject, _layerName:String):void
 		{
-			m_viewport.removeChildFromLayer(_viewComponent.container);
-			
-			var _viewComponentIndex	:uint	= m_viewComponents.indexOf(_viewComponent);
-			
-			if(_viewComponentIndex != -1)
+			if(m_viewport.containsLayerWithName(_layerName))
 			{
-				m_viewComponents.splice(_viewComponentIndex, 1);
+				m_viewport.addChildToLayer(_content, _layerName);
 			}
 		}
 		
-		override public function update():void
+		public function removeViewContent(_content:DisplayObject):void
 		{
-			var _viewComponentsCount	:uint		= m_viewComponents.length;
-			var _viewComponent			:IViewComponent;
-			
-			for(var i:uint = 0; i < _viewComponentsCount; i++)
-			{
-				_viewComponent						= m_viewComponents[i]; 
-				_viewComponent.container.x			= _viewComponent.position.x;
-				_viewComponent.container.y			= _viewComponent.position.y;
-				_viewComponent.container.rotation	= _viewComponent.rotation;
-			}
+			m_viewport.removeChildFromLayer(_content);
 		}
 	}
 }
