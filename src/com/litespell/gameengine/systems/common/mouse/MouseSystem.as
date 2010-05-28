@@ -1,5 +1,6 @@
 package com.litespell.gameengine.systems.common.mouse
 {
+	import com.litespell.gameengine.core.namespaces.LSGE_INTERNAL;
 	import com.litespell.gameengine.core.objects.AbstractSystem;
 	import com.litespell.gameengine.systems.common.view.ViewSystem;
 	
@@ -7,16 +8,18 @@ package com.litespell.gameengine.systems.common.mouse
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
+	use namespace LSGE_INTERNAL;
+	
 	public class MouseSystem extends AbstractSystem
 	{
-		public static const SYSTEM_NAME			:String 		= "MOUSE_SYSTEM";
+		public static const SYSTEM_NAME				:String 		= "MOUSE_SYSTEM";
 		
-		public var mouseDown					:Boolean;
-		public var mousePos						:Point;
-		public var wheelDelta					:Number;
+		public var mouseDown						:Boolean;
+		public var mousePos							:Point;
+		public var wheelDelta						:Number;
 		
-		private var m_viewSystem				:ViewSystem;
-		private var m_wheelDeltaClearFlag		:Boolean;
+		LSGE_INTERNAL var m_viewSystem				:ViewSystem;
+		LSGE_INTERNAL var m_wheelDeltaClearFlag		:Boolean;
 		
 		public function MouseSystem(_viewSystem:ViewSystem)
 		{

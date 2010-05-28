@@ -7,9 +7,14 @@ package com.litespell.gameengine.tamplates.gameobjects
 
 	public class BasicGameObject extends GameObject
 	{
-		public function BasicGameObject(_name:String)
+		private static const GAME_OBJECT_NAME	:String		= "gameObject"
+		private static var s_instanceCount		:uint		= 0;
+		
+		public function BasicGameObject(_name:String = null)
 		{
-			super(_name);
+			super(_name ? _name : GAME_OBJECT_NAME + "_" + s_instanceCount.toString());
+			
+			s_instanceCount++;
 		}
 	}
 }

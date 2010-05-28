@@ -4,9 +4,11 @@ package com.litespell.gameengine.components.d2.physics.box2d
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Collision.Shapes.b2Shape;
 	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	
+	import com.litespell.gameengine.components.d2.physics.box2d.interfaces.IBox2DComponent;
 	import com.litespell.gameengine.core.namespaces.LSGE_INTERNAL;
 	import com.litespell.gameengine.core.objects.AbstractComponent;
 	import com.litespell.gameengine.systems.d2.physics.box2d.Box2DSystem;
@@ -14,19 +16,22 @@ package com.litespell.gameengine.components.d2.physics.box2d
 	
 	use namespace LSGE_INTERNAL;
 	
-	public class Box2DComponent extends AbstractComponent
+	public class Box2DComponent extends AbstractComponent implements IBox2DComponent
 	{
-		public static const COMPONENT_NAME	:String = "box2dComponent";
-		
-		public var bodyInitializer			:Box2DBodyInitializer;
-		
+		LSGE_INTERNAL var m_bodyInitializer	:Box2DBodyInitializer;
 		LSGE_INTERNAL var m_added			:Boolean;
+		LSGE_INTERNAL var m_box2DSystem		:Box2DSystem;
 		
-		public function Box2DComponent()
+		public function Box2DComponent(_customName:String = null)
 		{
-			super(COMPONENT_NAME);
+			super(_customName ? _customName : Box2DComponentName.NAME);
 		}
 		
+		public function get bodyInitializer():Box2DBodyInitializer
+		{
+			return m_bodyInitializer;
+		}
+
 		override public function postBuild():void
 		{
 			super.postBuild();
@@ -174,6 +179,9 @@ package com.litespell.gameengine.components.d2.physics.box2d
 				if(_box2DSystem)
 				{
 					_box2DSystem.addBox2DBodyInitializer(bodyInitializer);
+					
+					m_added							= true;
+					m_box2DSystem					= _box2DSystem;
 				}
 			}
 		}
@@ -187,6 +195,9 @@ package com.litespell.gameengine.components.d2.physics.box2d
 				if(_box2DSystem)
 				{
 					_box2DSystem.removeBox2DBodyInitializer(bodyInitializer);
+					
+					m_added							= false;
+					m_box2DSystem					= null;
 				}
 			}
 		}

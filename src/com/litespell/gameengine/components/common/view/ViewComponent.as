@@ -1,5 +1,6 @@
 package com.litespell.gameengine.components.common.view
 {
+	import com.litespell.gameengine.components.common.view.interfaces.IViewComponent;
 	import com.litespell.gameengine.core.namespaces.LSGE_INTERNAL;
 	import com.litespell.gameengine.core.objects.AbstractComponent;
 	import com.litespell.gameengine.core.objects.interfaces.ISystem;
@@ -11,29 +12,16 @@ package com.litespell.gameengine.components.common.view
 	
 	use namespace LSGE_INTERNAL;
 	
-	public class ViewComponent extends AbstractComponent
+	public class ViewComponent extends AbstractComponent implements IViewComponent
 	{
-		public static const COMPONENT_NAME	:String = "viewComponent";
-		
-		[PropertyRef(ref = "spatialComponent.position2d")]
-		public var positionRef				:Point;
-		
-		[PropertyRef(ref = "spatialComponent.dimentions2d")]
-		public var dimentionsRef			:Point;
-		
-		[PropertyRef(ref = "spatialComponent.rotation2d")]
-		public var rotationRef				:Number;
-
 		LSGE_INTERNAL var m_content				:DisplayObject;
 		LSGE_INTERNAL var m_container			:Sprite; 
 		LSGE_INTERNAL var m_layerName			:String;
 		LSGE_INTERNAL var m_added				:Boolean;
 		
-		public function ViewComponent(_layerName:String)
+		public function ViewComponent(_layerName:String, _customName:String = null)
 		{
-			super(COMPONENT_NAME);
-			
-			requiresUpdate	= true;
+			super(_customName ? _customName : ViewComponentName.NAME);
 			
 			m_layerName		= _layerName;
 			m_container		= new Sprite();
@@ -42,21 +30,6 @@ package com.litespell.gameengine.components.common.view
 		public function get container():Sprite
 		{
 			return m_container;
-		}
-		
-		public function get position():Point
-		{
-			return positionRef;
-		}
-		
-		public function get dimentions():Point
-		{
-			return dimentionsRef;
-		}
-		
-		public function get rotation():Number
-		{
-			return rotationRef;
 		}
 		
 		public function get content():DisplayObject
@@ -109,13 +82,6 @@ package com.litespell.gameengine.components.common.view
 			super.onSelfRemove();
 			
 			tryToRemoveSelfFromViewSystem();
-		}
-		
-		override public function update():void
-		{
-			m_container.x			= position.x;
-			m_container.y			= position.y;
-			m_container.rotation	= rotation;
 		}
 		
 		private function tryToAddSelfToViewSystem():void

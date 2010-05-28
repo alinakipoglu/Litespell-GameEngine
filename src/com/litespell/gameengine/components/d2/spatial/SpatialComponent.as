@@ -1,5 +1,6 @@
 package com.litespell.gameengine.components.d2.spatial
 {
+	import com.litespell.gameengine.components.d2.spatial.interfaces.ISpatialComponent;
 	import com.litespell.gameengine.core.namespaces.LSGE_INTERNAL;
 	import com.litespell.gameengine.core.objects.AbstractComponent;
 	
@@ -7,17 +8,15 @@ package com.litespell.gameengine.components.d2.spatial
 	
 	use namespace LSGE_INTERNAL;
 	
-	public class SpatialComponent extends AbstractComponent
+	public class SpatialComponent extends AbstractComponent implements ISpatialComponent
 	{
-		public static const COMPONENT_NAME	:String = "spatialComponent";
-		
 		LSGE_INTERNAL var m_position2d		:Point;
 		LSGE_INTERNAL var m_dimentions2d	:Point;
 		LSGE_INTERNAL var m_rotation2d		:Number;
 		
-		public function SpatialComponent(_x:Number = 0, _y:Number = 0, _rotation:Number = 0, _width:Number = 0, _height:Number = 0)
+		public function SpatialComponent(_x:Number = 0, _y:Number = 0, _rotation:Number = 0, _width:Number = 0, _height:Number = 0, _customName:String = null)
 		{
-			super(COMPONENT_NAME);
+			super(_customName ? _customName : SpatialComponentName.NAME);
 			
 			m_position2d		= new Point(_x, _y);
 			m_dimentions2d		= new Point(_width, _height);

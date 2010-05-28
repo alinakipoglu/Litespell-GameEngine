@@ -1,5 +1,6 @@
 package com.litespell.gameengine.systems.common.view
 {
+	import com.litespell.gameengine.core.namespaces.LSGE_INTERNAL;
 	import com.litespell.gameengine.systems.common.view.intern.LayerIndexData;
 	
 	import flash.display.BlendMode;
@@ -9,18 +10,20 @@ package com.litespell.gameengine.systems.common.view
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
+	use namespace LSGE_INTERNAL;
+	
 	public class Viewport extends Sprite
 	{
-		private var m_mainContainer			:Sprite;
-		private var m_maskRect				:Shape;
-		private var m_debugRect				:Shape;
+		LSGE_INTERNAL var m_mainContainer			:Sprite;
+		LSGE_INTERNAL var m_maskRect				:Shape;
+		LSGE_INTERNAL var m_debugRect				:Shape;
 		
-		private var m_localWidth			:Number;
-		private var m_localHeight			:Number;
+		LSGE_INTERNAL var m_localWidth				:Number;
+		LSGE_INTERNAL var m_localHeight				:Number;
 		
-		private var m_layerIndexDatas		:Array;
-		private var m_layerIndexDataByLayer	:Dictionary;
-		private var m_layerByName			:Dictionary;
+		LSGE_INTERNAL var m_layerIndexDatas			:Array;
+		LSGE_INTERNAL var m_layerIndexDataByLayer	:Dictionary;
+		LSGE_INTERNAL var m_layerByName				:Dictionary;
 		
 		public function Viewport(_width:Number = 800, _height:Number = 600)
 		{
@@ -58,7 +61,7 @@ package com.litespell.gameengine.systems.common.view
 			return m_debugRect.visible;
 		}
 		
-		public function createLayer(_name:String, _index:uint):void
+		public function createLayer(_name:String, _index:int):void
 		{
 			var _layerSprite	:Sprite						= new Sprite();
 			var _layerIndexData	:LayerIndexData				= new LayerIndexData(_index, _layerSprite);

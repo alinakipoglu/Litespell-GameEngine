@@ -1,15 +1,19 @@
 package com.litespell.gameengine.systems.common.view
 {
+	import com.litespell.gameengine.core.namespaces.LSGE_INTERNAL;
 	import com.litespell.gameengine.core.objects.AbstractSystem;
 	
 	import flash.display.DisplayObject;
 	
+	use namespace LSGE_INTERNAL;
+	
 	public class ViewSystem extends AbstractSystem
 	{
-		public static const SYSTEM_NAME			:String = "VIEW_SYSTEM";
-		public static const DEFAULT_TOP_LAYER	:String	= "DEFAULT_TOP_LAYER";
+		public static const SYSTEM_NAME				:String = "VIEW_SYSTEM";
+		public static const DEFAULT_TOP_LAYER		:String	= "DEFAULT_TOP_LAYER";
+		public static const DEFAULT_BOTTOM_LAYER	:String	= "DEFAULT_BOTTOM_LAYER";
 		
-		private var m_viewport					:Viewport;
+		LSGE_INTERNAL var m_viewport				:Viewport;
 		
 		public function ViewSystem(_viewportWidth:Number, _viewportHeight:Number)
 		{
@@ -17,7 +21,8 @@ package com.litespell.gameengine.systems.common.view
 			
 			m_viewport				= new Viewport(_viewportWidth, _viewportHeight);
 
-			addViewportLayer(DEFAULT_TOP_LAYER, 999999999);
+			m_viewport.createLayer(DEFAULT_BOTTOM_LAYER, -1);
+			m_viewport.createLayer(DEFAULT_TOP_LAYER, 999999999);
 		}
 		
 		public function get viewport():Viewport

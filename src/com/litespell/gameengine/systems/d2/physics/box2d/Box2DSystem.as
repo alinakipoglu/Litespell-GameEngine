@@ -20,7 +20,6 @@ package com.litespell.gameengine.systems.d2.physics.box2d
 	{
 		public static const SYSTEM_NAME			:String = "BOX2D_SYSTEM";
 		
-		public var worldScale					:Number;
 		public var world						:Box2DCustomWorld;
 		
 		LSGE_INTERNAL var m_gravityVector		:b2Vec2;
@@ -30,18 +29,22 @@ package com.litespell.gameengine.systems.d2.physics.box2d
 		LSGE_INTERNAL var m_debugSprite			:Sprite;
 		LSGE_INTERNAL var m_box2dDebug			:b2DebugDraw;
 		
-		public function Box2DSystem(_xGravity:Number = 0, _yGravity:Number = 9.81, _worldScale:Number = 30)
+		public function Box2DSystem(_xGravity:Number = 0, _yGravity:Number = 9.81)
 		{
 			super(SYSTEM_NAME);
 			
 			m_requiresUpdate		= true;
 			
 			m_gravityVector			= new b2Vec2(_xGravity, _yGravity);
-			worldScale				= _worldScale;
 			
 			world					= new Box2DCustomWorld(m_gravityVector, true);
 			m_debugSprite			= new Sprite();
 			m_box2dDebug			= new b2DebugDraw();
+			
+			m_box2dDebug.SetFlags(b2DebugDraw.e_shapeBit);
+			m_box2dDebug.SetDrawScale(Box2DSystemDefaults.WORLD_SCALE);
+			m_box2dDebug.SetSprite(m_debugSprite);
+			m_box2dDebug.SetAlpha(0.5);
 			
 			m_box2dDebug.SetSprite(m_debugSprite);
 			world.SetDebugDraw(m_box2dDebug);
