@@ -15,6 +15,13 @@ package com.litespell.gameengine.tamplates.gameobjects
 			super(_name ? _name : GAME_OBJECT_NAME + "_" + s_instanceCount.toString());
 			
 			s_instanceCount++;
+			
+			init();
+		}
+		
+		protected function init():void
+		{
+			
 		}
 	}
 }

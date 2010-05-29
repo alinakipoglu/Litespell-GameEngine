@@ -21,19 +21,17 @@ package com.litespell.gameengine.tamplates.games
 		LSGE_INTERNAL var m_box2DSystem		:Box2DSystem;
 		LSGE_INTERNAL var m_mouseSystem		:MouseSystem;
 		
+		LSGE_INTERNAL var m_stage			:Stage;
+		LSGE_INTERNAL var m_viewportWidth	:Number;
+		LSGE_INTERNAL var m_viewportHeight	:Number;
+		
 		public function BasicGame(_stage:Stage, _viewportWidth:Number = 800, _viewportHeight:Number = 600)
 		{
-			m_viewSystem		= new ViewSystem(_viewportWidth, _viewportHeight);
-			m_timeSystem		= new TimeSystem();
-			m_keyboardSystem	= new KeyboardSystem(_stage);
-			m_mouseSystem		= new MouseSystem(m_viewSystem);
-			m_box2DSystem		= new Box2DSystem();
+			m_stage				= _stage;
+			m_viewportWidth		= _viewportWidth;
+			m_viewportHeight	= _viewportHeight;
 			
-			addSystem(m_viewSystem);
-			addSystem(m_timeSystem);
-			addSystem(m_keyboardSystem);
-			addSystem(m_mouseSystem);
-			addSystem(m_box2DSystem);
+			init();
 		}
 
 		public function get mouseSystem():MouseSystem
@@ -60,6 +58,20 @@ package com.litespell.gameengine.tamplates.games
 		{
 			return m_viewSystem;
 		}
-
+		
+		protected function init():void
+		{
+			m_viewSystem		= new ViewSystem(m_viewportWidth, m_viewportHeight);
+			m_timeSystem		= new TimeSystem();
+			m_keyboardSystem	= new KeyboardSystem(m_stage);
+			m_mouseSystem		= new MouseSystem(m_viewSystem);
+			m_box2DSystem		= new Box2DSystem();
+			
+			addSystem(m_viewSystem);
+			addSystem(m_timeSystem);
+			addSystem(m_keyboardSystem);
+			addSystem(m_mouseSystem);
+			addSystem(m_box2DSystem);
+		}
 	}
 }
