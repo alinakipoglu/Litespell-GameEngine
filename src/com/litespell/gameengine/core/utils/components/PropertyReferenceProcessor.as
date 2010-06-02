@@ -1,6 +1,7 @@
 package com.litespell.gameengine.core.utils.components
 {
 	import com.litespell.gameengine.core.objects.interfaces.IComponent;
+	import com.litespell.gameengine.core.utils.log.LogUtil;
 	
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;
@@ -66,6 +67,8 @@ package com.litespell.gameengine.core.utils.components
 							_result[_vectorAssigmentCount]			= _referance;
 							_vectorAssigmentCount++;
 						}
+					} else {
+						LogUtil.logError("Property Reference" + _propertyRef + " is not found or error encountered during path parser", PropertyReferenceProcessor);
 					}
 				}
 				

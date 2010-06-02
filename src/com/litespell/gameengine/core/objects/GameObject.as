@@ -126,7 +126,7 @@ package com.litespell.gameengine.core.objects
 				_component.onOwnerRemove();
 			}
 			
-			m_ownerGame						= null;
+			m_ownerGame							= null;
 		}
 		
 		public function build():void

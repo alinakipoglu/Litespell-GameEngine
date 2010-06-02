@@ -30,8 +30,8 @@ package com.litespell.gameengine.core.utils.components
 		
 		private static function process(_component:IComponent, _propertyReferenceDictionary:Dictionary,  _result:Vector.<IComponent>):void
 		{
-			var _propertyReferances		:Vector.<PropertyReferenceData>;
-			var _propertyReferanceCount	:uint			= 0;
+			var _propertyReferances			:Vector.<PropertyReferenceData>;
+			var _propertyReferanceCount		:uint			= 0;
 			var _referanceComponent			:IComponent;
 			
 			if(!s_proccessFlagByComponent[_component])

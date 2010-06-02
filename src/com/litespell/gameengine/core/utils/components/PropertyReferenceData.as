@@ -67,9 +67,14 @@ package com.litespell.gameengine.core.utils.components
 		
 		private function isPropertyPrimitiveType():Boolean
 		{
-			var _resolvedValue	:*	= m_owner[m_ownerProperty]
+			var _resolvedValue	:*	= m_owner[m_ownerProperty];
 			
 			if(_resolvedValue is Number || _resolvedValue is String || _resolvedValue is Boolean)
+			{
+				return true;
+			}
+			
+			if(!_resolvedValue)
 			{
 				return true;
 			}

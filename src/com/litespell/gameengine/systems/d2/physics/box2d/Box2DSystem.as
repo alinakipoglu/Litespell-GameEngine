@@ -2,6 +2,7 @@ package com.litespell.gameengine.systems.d2.physics.box2d
 {
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.Contacts.b2ContactEdge;
+	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2DebugDraw;
 	
 	import com.litespell.gameengine.core.namespaces.LSGE_INTERNAL;
@@ -28,6 +29,7 @@ package com.litespell.gameengine.systems.d2.physics.box2d
 		LSGE_INTERNAL var m_debug				:Boolean;
 		LSGE_INTERNAL var m_debugSprite			:Sprite;
 		LSGE_INTERNAL var m_box2dDebug			:b2DebugDraw;
+		LSGE_INTERNAL var m_contactListener		:Box2DContactListener;
 		
 		public function Box2DSystem(_xGravity:Number = 0, _yGravity:Number = 9.81)
 		{
@@ -41,13 +43,19 @@ package com.litespell.gameengine.systems.d2.physics.box2d
 			m_debugSprite			= new Sprite();
 			m_box2dDebug			= new b2DebugDraw();
 			
-			m_box2dDebug.SetFlags(b2DebugDraw.e_shapeBit);
+			m_contactListener		= new Box2DContactListener();
+			
+			m_box2dDebug.SetFlags(b2DebugDraw.e_shapeBit + b2DebugDraw.e_jointBit);
 			m_box2dDebug.SetDrawScale(Box2DSystemDefaults.WORLD_SCALE);
 			m_box2dDebug.SetSprite(m_debugSprite);
 			m_box2dDebug.SetAlpha(0.5);
 			
+			m_debugSprite.alpha		= 0.5;
+			
 			m_box2dDebug.SetSprite(m_debugSprite);
+			
 			world.SetDebugDraw(m_box2dDebug);
+			world.SetContactListener(m_contactListener);
 		}
 		
 		public function get debug():Boolean
@@ -77,6 +85,21 @@ package com.litespell.gameengine.systems.d2.physics.box2d
 		public function removeBox2DBodyInitializer(_bodyInitializer:Box2DBodyInitializer):void
 		{
 			world.removeBodyInitializer(_bodyInitializer);
+		}
+		
+		public function getBodyColliding(_body:b2Body):Boolean
+		{
+			return m_contactListener.getBodyColliding(_body);
+		}
+		
+		public function getBodyContactNormal(_body:b2Body):b2Vec2
+		{
+			return m_contactListener.getBodyContactNormal(_body);
+		}
+		
+		public function getBodyContactPoint(_body:b2Body):b2Vec2
+		{
+			return m_contactListener.getBodyContactPoint(_body);
 		}
 		
 		override public function update():void

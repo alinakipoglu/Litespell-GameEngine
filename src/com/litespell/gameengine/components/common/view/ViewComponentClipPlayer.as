@@ -41,7 +41,7 @@ package com.litespell.gameengine.components.common.view
 			m_typeByKey[_key]	= null;
 		}
 		
-		public function setCurrentClip(_key:String, _resetMovieClip:Boolean = false):void
+		public function setCurrentClip(_key:String):void
 		{
 			if(m_currentKey != _key)
 			{
@@ -52,10 +52,7 @@ package com.litespell.gameengine.components.common.view
 				{
 					m_requiresUpdate			= true;
 					
-					if(_resetMovieClip)
-					{
-						_clipAsMovieClip.gotoAndStop(1);
-					}
+					_clipAsMovieClip.gotoAndStop(1);
 					
 				} else {
 					m_requiresUpdate			= false;

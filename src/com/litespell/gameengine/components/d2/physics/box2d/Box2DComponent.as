@@ -18,9 +18,15 @@ package com.litespell.gameengine.components.d2.physics.box2d
 	
 	public class Box2DComponent extends AbstractComponent implements IBox2DComponent
 	{
-		LSGE_INTERNAL var m_bodyInitializer	:Box2DBodyInitializer;
-		LSGE_INTERNAL var m_added			:Boolean;
-		LSGE_INTERNAL var m_box2DSystem		:Box2DSystem;
+		LSGE_INTERNAL var m_bodyInitializer		:Box2DBodyInitializer;
+		LSGE_INTERNAL var m_added				:Boolean;
+		LSGE_INTERNAL var m_box2DSystem			:Box2DSystem;
+		
+		LSGE_INTERNAL var m_oldPosition			:b2Vec2;
+		LSGE_INTERNAL var m_oldLinearVelocity	:b2Vec2;
+		LSGE_INTERNAL var m_oldRotation			:Number;
+		LSGE_INTERNAL var m_oldAngularVelocity	:Number;
+		LSGE_INTERNAL var m_oldAngularDumping	:Number;
 		
 		public function Box2DComponent(_customName:String = null)
 		{
@@ -182,6 +188,16 @@ package com.litespell.gameengine.components.d2.physics.box2d
 					
 					m_added							= true;
 					m_box2DSystem					= _box2DSystem;
+					
+					if(m_oldPosition)
+					{
+						var _body	:b2Body			= bodyInitializer.body;
+						
+						_body.SetPosition(m_oldPosition);
+						_body.SetLinearVelocity(m_oldLinearVelocity);
+						_body.SetAngle(m_oldRotation);
+						_body.SetAngularVelocity(m_oldAngularVelocity);
+					}
 				}
 			}
 		}
@@ -194,6 +210,13 @@ package com.litespell.gameengine.components.d2.physics.box2d
 				
 				if(_box2DSystem)
 				{
+					var _body	:b2Body				= bodyInitializer.body;
+					
+					m_oldPosition					= _body.GetPosition();
+					m_oldLinearVelocity				= _body.GetLinearVelocity();
+					m_oldRotation					= _body.GetAngle();
+					m_oldAngularVelocity			= _body.GetAngularVelocity();
+					
 					_box2DSystem.removeBox2DBodyInitializer(bodyInitializer);
 					
 					m_added							= false;
