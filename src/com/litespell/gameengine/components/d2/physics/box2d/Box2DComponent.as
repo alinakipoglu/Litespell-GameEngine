@@ -92,7 +92,7 @@ package com.litespell.gameengine.components.d2.physics.box2d
 			var _polygonShape		:b2PolygonShape			= new b2PolygonShape();
 			var _fixtureDef			:b2FixtureDef			= createFixtureDef(_polygonShape, _density, _friction, _restitution, _isSensor, _categoryBits, _maskBits, _groupIndex);
 			var _bodyDef			:b2BodyDef				= createBodyDef(_x, _y, _type, _isBullet, _fixedRotation);
-			var _box2dInitializer	:Box2DBodyInitializer	= new Box2DBodyInitializer(_bodyDef, Vector.<b2FixtureDef>([_fixtureDef]));
+			var _box2dInitializer	:Box2DBodyInitializer	= new Box2DBodyInitializer(_bodyDef, Vector.<b2FixtureDef>([_fixtureDef]), this);
 			
 			_polygonShape.SetAsOrientedBox(_width * 0.5, _height * 0.5, new b2Vec2(), _rotation);
 			
@@ -115,7 +115,7 @@ package com.litespell.gameengine.components.d2.physics.box2d
 			var _polygonShape		:b2CircleShape			= new b2CircleShape(_radius);
 			var _fixtureDef			:b2FixtureDef			= createFixtureDef(_polygonShape, _density, _friction, _restitution, _isSensor, _categoryBits, _maskBits, _groupIndex);
 			var _bodyDef			:b2BodyDef				= createBodyDef(_x, _y, _type, _isBullet, false);
-			var _box2dInitializer	:Box2DBodyInitializer	= new Box2DBodyInitializer(_bodyDef, Vector.<b2FixtureDef>([_fixtureDef]));
+			var _box2dInitializer	:Box2DBodyInitializer	= new Box2DBodyInitializer(_bodyDef, Vector.<b2FixtureDef>([_fixtureDef]), this);
 			
 			return _box2dInitializer;
 		}

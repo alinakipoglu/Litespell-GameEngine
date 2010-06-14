@@ -17,12 +17,19 @@ package com.litespell.gameengine.systems.d2.physics.box2d.intern
 		LSGE_INTERNAL var m_fixtureDefs			:Vector.<b2FixtureDef>;
 		LSGE_INTERNAL var m_body				:b2Body;
 		LSGE_INTERNAL var m_fixtureByFixtureDef	:Dictionary;
+		LSGE_INTERNAL var m_userData			:*;
 		
-		public function Box2DBodyInitializer(_bodyDef:b2BodyDef, _fixtureDefs:Vector.<b2FixtureDef>)
+		public function Box2DBodyInitializer(_bodyDef:b2BodyDef, _fixtureDefs:Vector.<b2FixtureDef>, _userData:* = null)
 		{
 			m_bodyDef				= _bodyDef;
 			m_fixtureDefs			= _fixtureDefs;
+			m_userData				= _userData;
 			m_fixtureByFixtureDef	= new Dictionary();
+		}
+
+		public function get userData():*
+		{
+			return m_userData;
 		}
 
 		public function get bodyDef():b2BodyDef

@@ -36,6 +36,13 @@ package com.litespell.gameengine.systems.d2.physics.box2d.intern
 			}
 			
 			_bodyInitializer.m_body			= _body;
+			
+			_body.SetFixedRotation(_bodyInitializer.m_bodyDef.fixedRotation);
+			
+			if(_bodyInitializer.userData)
+			{
+				_body.SetUserData(_bodyInitializer.userData);
+			}
 		}
 		
 		public function removeBodyInitializer(_bodyInitializer:Box2DBodyInitializer):void

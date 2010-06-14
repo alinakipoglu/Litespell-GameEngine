@@ -43,6 +43,8 @@ package com.litespell.gameengine.core.utils.log
 			if(s_errors)
 			{
 				s_currentLogger.logError(_error, _errorOwner);
+				
+				throw new Error("");
 			}
 		}
 		

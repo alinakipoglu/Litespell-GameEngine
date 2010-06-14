@@ -1,6 +1,7 @@
 package com.litespell.gameengine.core.utils.components
 {
 	import com.litespell.gameengine.core.objects.interfaces.IComponent;
+	import com.litespell.gameengine.core.utils.log.LogUtil;
 	
 	import flash.utils.Dictionary;
 
@@ -50,7 +51,12 @@ package com.litespell.gameengine.core.utils.components
 						{
 							_referanceComponent			= _propertyReferances[i].target;
 							
-							process(_referanceComponent, _propertyReferenceDictionary, _result);
+							if(_referanceComponent)
+							{
+								process(_referanceComponent, _propertyReferenceDictionary, _result);
+							} else {
+								LogUtil.logError(_propertyReferances[i].owner + " 's target not found.", UpdateSorter);
+							}
 						}
 					}
 				}

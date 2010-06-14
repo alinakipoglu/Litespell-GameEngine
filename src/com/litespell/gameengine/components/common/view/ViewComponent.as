@@ -84,7 +84,7 @@ package com.litespell.gameengine.components.common.view
 			tryToRemoveSelfFromViewSystem();
 		}
 		
-		private function tryToAddSelfToViewSystem():void
+		protected function tryToAddSelfToViewSystem():void
 		{
 			if(!m_added)
 			{
@@ -99,7 +99,7 @@ package com.litespell.gameengine.components.common.view
 			}
 		}
 		
-		private function tryToRemoveSelfFromViewSystem():void
+		protected function tryToRemoveSelfFromViewSystem():void
 		{
 			if(m_added)
 			{

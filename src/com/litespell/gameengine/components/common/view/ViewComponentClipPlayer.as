@@ -25,10 +25,37 @@ package com.litespell.gameengine.components.common.view
 		{
 			super(_layerName, _customName);
 			
+			m_requiresUpdate	= true;
+			
 			m_clipsByKey		= new Dictionary();
 			m_typeByKey			= new Dictionary();
 		}
 		
+		public function get currentClip():DisplayObject
+		{
+			return m_clipsByKey[m_currentKey];
+		}
+		
+		public function get currentClipKey():String
+		{
+			return m_currentKey;
+		}
+
+		public function set currentClipKey(value:String):void
+		{
+			if(m_currentKey != value)
+			{
+				var _clip				:DisplayObject	= m_clipsByKey[value];
+				var _clipAsMovieClip	:MovieClip		= _clip as MovieClip;
+				
+				_clipAsMovieClip.gotoAndStop(1);
+				
+				m_currentKey		= value;
+				content				= _clip;
+				m_clipStartFrame	= currentFrame;
+			}
+		}
+
 		public function addClip(_clip:DisplayObject, _key:String, _type:uint = 1):void
 		{
 			m_clipsByKey[_key]	= _clip;
@@ -41,29 +68,6 @@ package com.litespell.gameengine.components.common.view
 			m_typeByKey[_key]	= null;
 		}
 		
-		public function setCurrentClip(_key:String):void
-		{
-			if(m_currentKey != _key)
-			{
-				var _clip				:DisplayObject	= m_clipsByKey[_key];
-				var _clipAsMovieClip	:MovieClip		= _clip as MovieClip;
-				
-				if(_clipAsMovieClip && _clipAsMovieClip.totalFrames > 1)
-				{
-					m_requiresUpdate			= true;
-					
-					_clipAsMovieClip.gotoAndStop(1);
-					
-				} else {
-					m_requiresUpdate			= false;
-				}
-				
-				m_currentKey		= _key;
-				content				= _clip;
-				m_clipStartFrame	= currentFrame;
-			}
-		}
-		
 		public function getClip(_key:String):DisplayObject
 		{
 			return m_clipsByKey[_key];
@@ -74,22 +78,23 @@ package com.litespell.gameengine.components.common.view
 			var _currentClip	:MovieClip	= m_clipsByKey[m_currentKey];
 			var _currentType	:uint		= m_typeByKey[m_currentKey];
 			
-			if(_currentClip.currentFrame != _currentClip.totalFrames)
+			if(_currentClip)
 			{
-				_currentClip.gotoAndStop(currentFrame - m_clipStartFrame);
-			} else {
-				if(_currentType == TYPE_LOOP)
+				if(_currentClip.currentFrame != _currentClip.totalFrames)
 				{
-					m_clipStartFrame		= currentFrame;
+					_currentClip.gotoAndStop(currentFrame - m_clipStartFrame);
+				} else {
+					if(_currentType == TYPE_LOOP)
+					{
+						m_clipStartFrame		= currentFrame;
+						
+						_currentClip.gotoAndStop(1);
+					}
 					
-					_currentClip.gotoAndStop(1);
-				}
-				
-				if(_currentType == TYPE_PLAY_AND_STOP)
-				{
-					m_requiresUpdate		= false;
-					
-					_currentClip.gotoAndStop(_currentClip.totalFrames);
+					if(_currentType == TYPE_PLAY_AND_STOP)
+					{
+						_currentClip.gotoAndStop(_currentClip.totalFrames);
+					}
 				}
 			}
 		}

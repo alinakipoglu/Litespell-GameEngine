@@ -121,6 +121,11 @@ package com.litespell.gameengine.systems.common.view
 			}
 		}
 		
+		public function getLayerByName(_layerName:String):Sprite
+		{
+			return m_layerByName[_layerName];
+		}
+		
 		override public function get width():Number
 		{
 			return m_localWidth;

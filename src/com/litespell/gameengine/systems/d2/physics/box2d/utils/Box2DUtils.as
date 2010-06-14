@@ -44,13 +44,21 @@ package com.litespell.gameengine.systems.d2.physics.box2d.utils
 			}
 		}
 		
-		public static function raycast(_world:b2World, _rayStart:b2Vec2, _rayEnd:b2Vec2):b2Body
+		public static function raycast(_world:b2World, _rayStart:b2Vec2, _rayEnd:b2Vec2, _castSensors:Boolean = false):b2Body
 		{
 			var _result	:b2Body;
 			
 			function rayCastCallback(_fixture:b2Fixture, _point:b2Vec2, _normal:b2Vec2, _fraction:Number):Number
 			{
-				_result	= _fixture.GetBody();
+				if(_fixture.IsSensor() && _castSensors)
+				{
+					_result	= _fixture.GetBody();
+				}
+				
+				if(!_fixture.IsSensor())
+				{
+					_result	= _fixture.GetBody();
+				}
 				
 				return _fraction;
 			}
