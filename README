@@ -1,0 +1,8 @@
+An Actionscript GameEngine developed and maintained by me at Litespell. 
+
+- Graph based entity and system management
+- Unique method to create component to component relationships by meta based dependency injection.
+- Strong Box2D integration.
+- Useful template objects for quick starters.
+
+Currently no future maintenance are planned. Please e-mail me questions regarding to usage.
