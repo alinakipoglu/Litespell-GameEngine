@@ -1,6 +1,8 @@
 package com.litespell.gameengine.core.objects.interfaces
 {
-	public interface IGameDelegate
+	import flash.events.IEventDispatcher;
+
+	public interface IGameDelegate extends IEventDispatcher
 	{
 		function get ownerGame():IGame;
 		function set ownerGame(_value:IGame):void;

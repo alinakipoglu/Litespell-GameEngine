@@ -5,9 +5,11 @@ package com.litespell.gameengine.core.objects
 	import com.litespell.gameengine.core.objects.interfaces.IGame;
 	import com.litespell.gameengine.core.objects.interfaces.IGameDelegate;
 	
+	import flash.events.EventDispatcher;
+	
 	use namespace LSGE_INTERNAL;
 	
-	public class AbstractGameDelegate implements IGameDelegate
+	public class AbstractGameDelegate extends EventDispatcher implements IGameDelegate
 	{
 		LSGE_INTERNAL var m_ownerGame		:IGame;
 		

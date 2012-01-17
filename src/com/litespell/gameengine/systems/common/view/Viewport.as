@@ -51,6 +51,26 @@ package com.litespell.gameengine.systems.common.view
 			addChild(m_mainContainer);
 		}
 		
+		public function set xOffset(_value:Number):void
+		{
+			m_mainContainer.x								= _value;
+		}
+		
+		public function set yOffset(_value:Number):void
+		{
+			m_mainContainer.y								= _value;
+		}
+		
+		public function get xOffset():Number
+		{
+			return m_mainContainer.x;
+		}
+		
+		public function get yOffset():Number
+		{
+			return m_mainContainer.y;
+		}
+		
 		public function set debug(_value:Boolean):void
 		{
 			m_debugRect.visible	= true;

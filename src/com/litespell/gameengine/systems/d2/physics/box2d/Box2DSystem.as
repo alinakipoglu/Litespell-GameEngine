@@ -45,7 +45,7 @@ package com.litespell.gameengine.systems.d2.physics.box2d
 			
 			m_contactListener		= new Box2DContactListener();
 			
-			m_box2dDebug.SetLineThickness(4);
+			m_box2dDebug.SetLineThickness(1);
 			m_box2dDebug.SetFlags(b2DebugDraw.e_shapeBit + b2DebugDraw.e_jointBit);
 			m_box2dDebug.SetDrawScale(Box2DSystemDefaults.WORLD_SCALE);
 			m_box2dDebug.SetSprite(m_debugSprite);
@@ -110,7 +110,7 @@ package com.litespell.gameengine.systems.d2.physics.box2d
 			var _timeSystem	:TimeSystem	= m_ownerGame.getSystemByName(TimeSystem.SYSTEM_NAME) as TimeSystem;
 			var _timeInfo	:TimeInfo	= _timeSystem.timeInfo;
 				
-			world.Step(1 / _timeInfo.frameRate * _timeInfo.delta, 1, 10);
+			world.Step(1 / _timeInfo.frameRate * _timeInfo.delta, 30, 30);
 			world.ClearForces();
 			
 			if(m_debug)

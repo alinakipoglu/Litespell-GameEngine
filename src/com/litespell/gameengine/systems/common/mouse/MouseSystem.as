@@ -17,6 +17,7 @@ package com.litespell.gameengine.systems.common.mouse
 		public var mouseDown						:Boolean;
 		public var mousePos							:Point;
 		public var wheelDelta						:Number;
+		public var disabeled						:Boolean;
 		
 		LSGE_INTERNAL var m_viewSystem				:ViewSystem;
 		LSGE_INTERNAL var m_wheelDeltaClearFlag		:Boolean;
@@ -32,7 +33,7 @@ package com.litespell.gameengine.systems.common.mouse
 			mouseDown			= false;
 			mousePos			= new Point();
 			wheelDelta			= 0;
-			
+
 			m_viewSystem.viewport.addEventListener(MouseEvent.MOUSE_DOWN, handleViewportMouseDownEvent);
 			m_viewSystem.viewport.addEventListener(MouseEvent.MOUSE_UP, handleViewportMouseUpEvent);
 			m_viewSystem.viewport.addEventListener(MouseEvent.MOUSE_WHEEL, handleMouseWhellEvent);
@@ -40,6 +41,11 @@ package com.litespell.gameengine.systems.common.mouse
 		
 		private function handleViewportMouseDownEvent(event:MouseEvent):void
 		{
+			if(disabeled)
+			{
+				return;
+			}
+			
 			mouseDown		= true;
 		}
 		
@@ -50,6 +56,11 @@ package com.litespell.gameengine.systems.common.mouse
 		
 		private function handleMouseWhellEvent(event:MouseEvent):void
 		{
+			if(disabeled)
+			{
+				return;
+			}
+			
 			wheelDelta		= event.delta;
 		}
 		
@@ -57,8 +68,13 @@ package com.litespell.gameengine.systems.common.mouse
 		{
 			super.update();
 			
-			mousePos.x		= m_viewSystem.viewport.mouseX;
-			mousePos.y		= m_viewSystem.viewport.mouseY;
+			if(disabeled)
+			{
+				return;
+			}
+			
+			mousePos.x					= m_viewSystem.viewport.mouseX;
+			mousePos.y					= m_viewSystem.viewport.mouseY;
 			
 			if(m_wheelDeltaClearFlag)
 			{

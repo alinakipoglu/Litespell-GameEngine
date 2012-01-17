@@ -16,6 +16,7 @@ package com.litespell.gameengine.core.objects
 		LSGE_INTERNAL var m_gameObjectByName					:Dictionary;
 		LSGE_INTERNAL var m_removedGameObjectCountDuringUpdate	:uint;
 		LSGE_INTERNAL var m_updating							:Boolean;
+		LSGE_INTERNAL var m_builded								:Boolean;
 		
 		public function World()
 		{
@@ -34,6 +35,11 @@ package com.litespell.gameengine.core.objects
 		
 		public function addGameObject(_value:IGameObject):void
 		{
+			if(m_builded && !_value.builded)
+			{
+				_value.build();
+			}
+			
 			if(_value.ownerWorld)
 			{
 				_value.ownerWorld.removeGameObject(_value);
@@ -87,6 +93,8 @@ package com.litespell.gameengine.core.objects
 		
 		public function build():void
 		{
+			m_builded						= true;
+			
 			var _gameObjectCount	:uint	= m_gameObjects.length;
 			
 			for(var i:uint = 0; i < _gameObjectCount; i++)

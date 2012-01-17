@@ -8,6 +8,8 @@ package com.litespell.gameengine.core.objects.interfaces
 		function get ownerWorld():IWorld;
 		function set ownerWorld(_value:IWorld):void;
 		
+		function get builded():Boolean;
+		
 		function addComponent(_value:IComponent):void;
 		
 		function removeComponent(_value:IComponent):void;

@@ -26,7 +26,7 @@ package com.litespell.gameengine.core.utils.components
 		
 		public function get owner():IComponent
 		{
-			return m_owner;
+			return m_owner;*
 		}
 		
 		public function get ownerProperty():String

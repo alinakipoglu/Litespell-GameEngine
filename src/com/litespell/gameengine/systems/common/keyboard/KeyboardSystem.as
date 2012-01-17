@@ -14,6 +14,8 @@ package com.litespell.gameengine.systems.common.keyboard
 		
 		LSGE_INTERNAL var m_stage				:Stage;
 		
+		public var disabeled					:Boolean;
+		
 		public function KeyboardSystem(_stage:Stage)
 		{
 			super(SYSTEM_NAME);
@@ -25,6 +27,11 @@ package com.litespell.gameengine.systems.common.keyboard
 		
 		public function keyIsDown(_keyCode:uint):Boolean
 		{
+			if(disabeled)
+			{
+				return false;
+			}
+			
 			return KeyboardUtil.keyIsDown(_keyCode);
 		}
 	}

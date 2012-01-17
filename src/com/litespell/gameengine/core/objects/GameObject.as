@@ -23,6 +23,7 @@ package com.litespell.gameengine.core.objects
 		LSGE_INTERNAL var m_sortedComponentsList				:Vector.<IComponent>;
 		LSGE_INTERNAL var m_propertyReferenceDataByComponent	:Dictionary;
 		LSGE_INTERNAL var m_componentByName						:Dictionary;
+		LSGE_INTERNAL var m_builded								:Boolean;
 		
 		public function GameObject(_name:String)
 		{
@@ -49,6 +50,11 @@ package com.litespell.gameengine.core.objects
 		public function set ownerWorld(_value:IWorld):void
 		{
 			m_ownerWorld	= _value;
+		}
+		
+		public function get builded():Boolean
+		{
+			return m_builded;
 		}
 		
 		public function addComponent(_value:IComponent):void
@@ -131,6 +137,8 @@ package com.litespell.gameengine.core.objects
 		
 		public function build():void
 		{
+			m_builded							= true;
+			
 			var _componentCount			:uint	= m_components.length;
 			var _component				:IComponent;
 			

@@ -20,24 +20,27 @@ package com.litespell.gameengine.systems.d2.physics.box2d.utils
 				var manifold		:b2Manifold		= m_contact.contact.GetManifold();
 				var contactNormal	:b2Vec2			= manifold.m_localPlaneNormal;
 				
-				if(contactNormal.y < 0.5)
+				if(!m_contact.contact.GetFixtureA().IsSensor() && !m_contact.contact.GetFixtureB().IsSensor())
 				{
-					_result.top		= true;
-				}
-				
-				if(contactNormal.x > 0.5)
-				{
-					_result.right	= true;
-				}
-				
-				if(contactNormal.y > 0.5)
-				{
-					_result.bottom	= true;
-				}
-				
-				if(contactNormal.x < -0.5)
-				{
-					_result.left	= true;
+					if(contactNormal.y < 0.5)
+					{
+						_result.top		= true;
+					}
+					
+					if(contactNormal.x > 0.5)
+					{
+						_result.right	= true;
+					}
+					
+					if(contactNormal.y > 0.5)
+					{
+						_result.bottom	= true;
+					}
+					
+					if(contactNormal.x < -0.5)
+					{
+						_result.left	= true;
+					}
 				}
 				
 				m_contact			= m_contact.next;
